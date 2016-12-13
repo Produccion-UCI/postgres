@@ -10,7 +10,7 @@ node {
       git fetch upstream
       git checkout master
       git merge upstream/master
-      ''''
+      '''
    stage('End')
       sh "git push master"
 }
