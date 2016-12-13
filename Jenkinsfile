@@ -10,6 +10,6 @@ node {
       sh "git merge upstream/master"
    }
    stage('End') {
-      sh "git push master"
+      sh "git push"
    }
 }
