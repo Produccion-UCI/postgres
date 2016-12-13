@@ -9,6 +9,7 @@ node {
       sh "git fetch upstream"
       sh "git checkout master"
       sh "git merge upstream/master"
+      sh "git push --set-upstream origin master"
    }
    stage('End') {
       sh "git push"
