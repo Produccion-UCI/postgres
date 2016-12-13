@@ -12,6 +12,7 @@ node {
       sh "git push --set-upstream origin master"
    }
    stage('End') {
+      git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git'
       sh "git push"
    }
 }
