@@ -1,4 +1,5 @@
 node {
+  deleteDir()
   stage ("Checkout") {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git']]])
   }
@@ -7,7 +8,7 @@ node {
    //git branch: 'master', credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'git@github.com:Produccion-UCI/postgres.git'
     //git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git'
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '0ca6f97f-4c25-43ac-924b-7a89baee3121', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-      sh "git remote rm upstream"
+      //sh "git remote rm upstream"
       sh "git remote add upstream https://github.com/docker-library/postgres"
       sh "git fetch upstream"
       sh "git checkout master"
