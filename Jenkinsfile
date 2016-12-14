@@ -49,6 +49,7 @@ node {
     sh "git merge upstream/master"
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '0ca6f97f-4c25-43ac-924b-7a89baee3121', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
      //sh("git tag -a some_tag -m 'Jenkins'")
+     sh("git push --set-upstream origin master")
      sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com:Produccion-UCI/postgres.git")
     }
     // Push changes and tag
