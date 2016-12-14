@@ -20,7 +20,7 @@ node {
     sh "git merge upstream/master"
      //sh("git tag -a some_tag -m 'Jenkins'")
      //sh("git push --set-upstream origin master")
-     sh("git push https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com:Produccion-UCI/postgres.git")
+     sh("git push --set-upstream https//${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com:Produccion-UCI/postgres.git master")
     }
  }
 }
