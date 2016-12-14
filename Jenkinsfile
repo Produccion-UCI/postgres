@@ -42,6 +42,7 @@ node {
 
  stage('Syncing') {
     git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git'
+    sh "git remote rm upstream"
     sh "git remote add upstream https://github.com/docker-library/postgres"
     sh "git fetch upstream"
     sh "git checkout master"
