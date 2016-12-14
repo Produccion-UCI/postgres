@@ -9,7 +9,7 @@ node {
    stage('Sync') {
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'e3c8fe88-883e-436b-9dac-1e9d25e7c983', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
          sh "./job.sh"
-         sh("git push origin HEAD:refs/heads/master https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com/Produccion-UCI/postgres.git")
+         sh("git push origin HEAD:refs/heads/master")
       }
    }
 }
