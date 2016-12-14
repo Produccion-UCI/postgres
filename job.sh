@@ -10,6 +10,7 @@ else
 #echo "Necesitas actualizar";
  git checkout master
  git merge upstream/master
+ echo ${env.GIT_USERNAME}
  #git add . && git commit -m "Merge branch"
  ##git push origin HEAD:refs/heads/master #dispara el evento del quay.io
 fi
