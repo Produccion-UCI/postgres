@@ -11,5 +11,5 @@ else
  git checkout master
  git merge upstream/master
  #git add . && git commit -m "Merge branch"
- git push origin HEAD:refs/heads/master #dispara el evento del quay.io
+ ##git push origin HEAD:refs/heads/master #dispara el evento del quay.io
 fi
