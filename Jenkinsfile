@@ -1,15 +1,20 @@
 node {
    deleteDir()
    stage('Checkout') {
-      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '0ca6f97f-4c25-43ac-924b-7a89baee3121', url: 'https://github.com/Produccion-UCI/postgres.git']]])
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'e3c8fe88-883e-436b-9dac-1e9d25e7c983', url: 'https://github.com/Produccion-UCI/postgres.git']]])
       sh "chmod +x job.sh"
       sh "./job.sh"
-      sh "git push --set-upstream origin master"
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'e3c8fe88-883e-436b-9dac-1e9d25e7c983', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+         sh("git push --set-upstream https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com/Produccion-UCI/postgres.git master")
+      }
+      //sh "git push --set-upstream origin master"
    }
    stage('Sync') {
       
    }
-   stage('Push') {
+   stage('Email') {
       
+   }
+   stage('Run other job') {
    }
 }
