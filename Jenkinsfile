@@ -25,29 +25,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+node {
+ // Env variables for git push
+ env.J_USERNAME = "yuniers"
+ env.J_EMAIL = "yjsosa@uci.cu"
+ env.J_GIT_CONFIG = "true"
+ // Use credentials id from Jenkins (Does anyone know a way to reference them by name rather than by id?)
+ env.J_CREDS_IDS = 'a03d0639-7f59-4760-a5ad-dc3066f8fee5'
 
-// Env variables for git push
-env.J_USERNAME = "yuniers"
-env.J_EMAIL = "yjsosa@uci.cu"
-env.J_GIT_CONFIG = "true"
-// Use credentials id from Jenkins (Does anyone know a way to reference them by name rather than by id?)
-env.J_CREDS_IDS = 'a03d0639-7f59-4760-a5ad-dc3066f8fee5'
+ def gitLib
 
-def gitLib
+ stage ("Checkout") {
+  deleteDir()
+  checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git']]])
+  gitLib = load "git_push_ssh.groovy"
+ }
 
-stage ("Checkout") {
- deleteDir()
- checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git']]])
- gitLib = load "git_push_ssh.groovy"
-}
-  
-stage('Syncing') {
-   git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git'
-   sh "git remote add upstream https://github.com/docker-library/postgres"
-   sh "git fetch upstream"
-   sh "git checkout master"
-   sh "git merge upstream/master"
-   // Push changes and tag
-   gitLib.pushSSH(commitMsg: "Jenkins build #${env.BUILD_NUMBER} from ${env.BRANCH_NAME}", 
-     tagName: "build/${env.BRANCH_NAME}/${env.BUILD_NUMBER}", files: ".", config: true);
+ stage('Syncing') {
+    git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git'
+    sh "git remote add upstream https://github.com/docker-library/postgres"
+    sh "git fetch upstream"
+    sh "git checkout master"
+    sh "git merge upstream/master"
+    // Push changes and tag
+    gitLib.pushSSH(commitMsg: "Jenkins build #${env.BUILD_NUMBER} from ${env.BRANCH_NAME}", 
+      tagName: "build/${env.BRANCH_NAME}/${env.BUILD_NUMBER}", files: ".", config: true);
+ }
 }
