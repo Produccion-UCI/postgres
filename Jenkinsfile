@@ -18,7 +18,7 @@ node {
      //sh("git push --set-upstream https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com:Produccion-UCI/postgres.git master")
     }
    sshagent (credentials: ['a03d0639-7f59-4760-a5ad-dc3066f8fee5']) {
-    sh 'git push'
+    sh 'git push --set-upstream origin master'
    }
  }
 }
