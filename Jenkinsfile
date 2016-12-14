@@ -9,9 +9,9 @@ node {
    stage('Sync') {
       //sh "./job.sh"
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'e3c8fe88-883e-436b-9dac-1e9d25e7c983', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-         sh """""""" git remote add upstream https:\/\/github.com\/docker-library\/postgres
+         sh """""""" git remote add upstream 'https://github.com/docker-library/postgres'
                      git fetch upstream
-                     status=\`git status\`
+                     status=`git status`
                      if [[ $status == *'nothing to commit'* ]]
                      then
                         echo 'No hay que actualizar'
