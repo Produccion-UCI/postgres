@@ -1,7 +1,7 @@
 node {
    deleteDir()
    stage('Checkout') {
-      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git']]])
+      //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/Produccion-UCI/postgres.git']]])
       sh "chmod +x job.sh"
    }
    stage('Sync') {
@@ -9,7 +9,8 @@ node {
    }
    stage('Push') {
       sshagent('a03d0639-7f59-4760-a5ad-dc3066f8fee5') {
-         sh "git push origin HEAD:refs/heads/master"
+         git credentialsId: 'a03d0639-7f59-4760-a5ad-dc3066f8fee5', url: 'https://github.com/docker-library/postgres'
+         sh "git push"
       }
    }
 }
