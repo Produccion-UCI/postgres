@@ -31,7 +31,7 @@ node {
  env.J_EMAIL = "yjsosa@uci.cu"
  env.J_GIT_CONFIG = "true"
  // Use credentials id from Jenkins (Does anyone know a way to reference them by name rather than by id?)
- env.J_CREDS_IDS = 'a03d0639-7f59-4760-a5ad-dc3066f8fee5'
+ env.J_CREDS_IDS = '0ca6f97f-4c25-43ac-924b-7a89baee3121'
 
  def gitLib
 
